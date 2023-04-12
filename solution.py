@@ -1,14 +1,18 @@
-import pandas as pd
 import numpy as np
+import scipy
 
 
-chat_id = 123456 # Ваш chat ID, не меняйте название переменной
+chat_id = 419670097  # Ваш chat ID, не меняйте название переменной
+
 
 def solution(x_success: int, 
              x_cnt: int, 
              y_success: int, 
              y_cnt: int) -> bool:
-    # Измените код этой функции
-    # Это будет вашим решением
-    # Не меняйте название функции и её аргументы
-    return ... # Ваш ответ, True или False
+    alpha = 0.05
+    conversion_x = x_success / x_cnt
+    conversion_y = y_success / y_cnt
+
+    P = float(conversion_x * x_cnt + conversion_y * y_cnt) / (x_cnt + y_cnt)
+    z_stat = (conversion_x - conversion_y) / np.sqrt(P * (1 - P) * (1. / x_cnt + 1. / y_cnt))
+    return 2 * (1 - scipy.stats.norm.cdf(np.abs(z_stat))) < alpha

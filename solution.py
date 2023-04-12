@@ -13,6 +13,6 @@ def solution(x_success: int,
     conversion_x = x_success / x_cnt
     conversion_y = y_success / y_cnt
 
-    P = float(conversion_x * x_cnt + conversion_y * y_cnt) / (x_cnt + y_cnt)
+    P = (x_success + y_success) / (x_cnt + y_cnt)
     z_stat = (conversion_x - conversion_y) / np.sqrt(P * (1 - P) * (1. / x_cnt + 1. / y_cnt))
-    return 2 * (1 - scipy.stats.norm.cdf(np.abs(z_stat))) < alpha
+    return scipy.stats.norm.cdf(np.abs(z_stat)) < alpha
